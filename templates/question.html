@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Question Answering App</title>
+    <link rel="stylesheet" href="https://cdn.discordapp.com/attachments/695222842090717570/836728394201579796/discord-style.css">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='res/favicon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: #36393F;
+            color: #DCDDDE;
+            font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+            font-size: 16px;
+            line-height: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .header-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .header-image img {
+            max-width: 80%;
+            height: auto;
+        }
+        input[type="submit"]:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        input[type="file"], input[type="text"], input[type="submit"] {
+            background-color: #40444B;
+            border-radius: 4px;
+            border: none;
+            color: #DCDDDE;
+            font-size: 16px;
+            height: 32px;
+            margin-top: 16px;
+            padding: 8px;
+            width: 400px;
+        }
+
+        input[type="submit"] {
+            background-color: #7289DA;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+        label {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 32px;
+            text-align: center;
+            width: 400px;
+        }
+        input[type="file"] {
+            background-color: #40444B;
+            border-radius: 4px;
+            border: none;
+            color: #DCDDDE;
+            font-size: 16px;
+            height: 32px;
+            margin-top: 16px;
+            padding: 8px;
+            width: 400px;
+        }
+
+        input[type="file"]::-webkit-file-upload-button {
+            background-color: #7289DA;
+            border: none;
+            color: #FFFFFF;
+            cursor: pointer;
+            font-size: 16px;
+            height: 32px;
+            padding: 8px;
+            width: 100px;
+        }
+
+        input[type="file"]::-moz-file-upload-button {
+            background-color: #7289DA;
+            border: none;
+            color: #FFFFFF;
+            cursor: pointer;
+            font-size: 16px;
+            height: 32px;
+            padding: 8px;
+            width: 100px;
+        }
+
+        footer {
+            background-color: #262626;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #007bff;
+        }
+
+        .footer p {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+        }
+
+        .social-icons img {
+            max-width: 30px;
+            height: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <p></p>
+    <p></p>
+    <p></p>
+    <div class="header-image">
+    <img src="https://th.bing.com/th/id/OIP.D6_0XafK2nS4zYvQiubmrAHaHa?rs=1&pid=ImgDetMain" alt="Header image" style="border-radius: 50%;">
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        <label for="question">Ask a question:</label>
+        <div class="speech">
+        <input type="text" id="transcript" name="question" placeholder="Enter your question...">
+        <img onclick="startDictation()" src="//i.imgur.com/cHidSVu.gif" />
+        </div>
+        <input type="file" name="file" accept=".txt" placeholder="Upload a text file...">
+        <input type="submit" value="Submit">
+    </form>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4><A>Jyothis John Joel</A> 🤖</h4>
+                </div>
+            <!--
+                <div class="col-md-4 text-center">
+                <h4>Follow Me</h4>
+                <ul class="social-icons">
+                    <a href="https://www.linkedin.com/in//"><img src="{{ url_for('static', filename='res/linkedin.png') }}" alt="LinkedIn"></a>
+                    <a href="https://github.com/"><img src="{{ url_for('static', filename='res/github.png') }}" alt="GitHub"></a>
+                    <a href=""><img src="{{ url_for('static', filename='res/web.png') }}" alt="Website"></a>
+                    <a href="https://medium.com/"><img src="{{ url_for('static', filename='res/medium.png') }}" alt="Medium"></a>
+                </ul>
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-muted">© 2023-2024 PythonPythonME.</p>
+                    <p>All rights reserved.</p>
+                </div>
+            </div>
+            -->
+        </div>
+    </footer>
+
+    <script>
+        function startDictation() {
+            if (window.hasOwnProperty('webkitSpeechRecognition')) {
+            var recognition = new webkitSpeechRecognition();
+
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.lang = 'en-US';
+            recognition.start();
+
+            recognition.onresult = function (e) {
+                document.getElementById('transcript').value = e.results[0][0].transcript;
+                recognition.stop();
+                document.getElementById('labnol').submit();
+            };
+
+            recognition.onerror = function (e) {
+                recognition.stop();
+            };
+            }
+        }
+    </script>
+
+
+</body>
+</html>
